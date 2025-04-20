@@ -9,8 +9,7 @@ import FormData from "form-data";
 
 const bucket = admin.storage().bucket();
 
-const gotenbergApiUrl =
-  process.env.GOTENBERG_API_URL || "http://localhost:3000";
+const gotenbergApiUrl = process.env.GOTENBERG_API_URL;
 
 interface ConvertDocumentData {
   filePath: string;

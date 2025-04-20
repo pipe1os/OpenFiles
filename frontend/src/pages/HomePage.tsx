@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import logo from "../assets/logo.svg";
 import React, { useState } from "react";
+import { getDownloadURL, ref } from "firebase/storage";
+import { storage } from "../services/firebase";
 import FileUploader from "../components/core/FileUploader";
 import ConversionSelector from "../components/core/ConversionSelector";
 import OptionsPanel from "../components/core/OptionsPanel";
@@ -81,9 +83,6 @@ const HomePage: React.FC = () => {
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
-
-  const storageEmulatorHost = "http://127.0.0.1:9199";
-  const storageBucketId = import.meta.env.VITE_FIREBASE_STORAGE_BUCKET;
 
   const availableTypeValues = conversionTypes.map((cat) => cat.value);
   const availableFormats = selectedCategoryValue
@@ -205,12 +204,13 @@ const HomePage: React.FC = () => {
         throw new Error(`Unknown conversion type: ${selectedCategoryValue}`);
       }
 
+      console.log("Conversion completed, getting download URL...");
+      const convertedFileRef = ref(storage, result.convertedFile);
+      const url = await getDownloadURL(convertedFileRef);
+      console.log("Download URL obtained:", url);
+      setDownloadUrl(url);
+
       setConversionStatus("success");
-      const encodedConvertedPath = encodeURIComponent(result.convertedFile);
-      const bucket = storageBucketId || "[YOUR_BUCKET_ID]";
-      const emulatorDownloadUrl = `${storageEmulatorHost}/v0/b/${bucket}/o/${encodedConvertedPath}?alt=media`;
-      console.log("Conversion completed, emulator URL:", emulatorDownloadUrl);
-      setDownloadUrl(emulatorDownloadUrl);
     } catch (error: any) {
       console.error("Error captured during conversion process:", error);
       setConversionStatus("error");
