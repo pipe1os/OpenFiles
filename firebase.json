@@ -1,0 +1,68 @@
+{
+  "functions": {
+    "source": "backend/functions",
+    "codebase": "default",
+    "runtime": "nodejs22",
+    "ignore": [
+      "node_modules",
+      ".git",
+      "firebase-debug.log",
+      "firebase-debug.*.log"
+    ],
+    "predeploy": [
+      "npm --prefix \"backend/functions\" run build"
+    ],
+    "convertImage": {
+      "timeoutSeconds": 60,
+      "memory": "256MiB"
+    },
+    "convertAudio": {
+      "timeoutSeconds": 120,
+      "memory": "512MiB"
+    },
+    "convertDocument": {
+      "timeoutSeconds": 60,
+      "memory": "256MiB",
+      "environment": {
+        "GOTENBERG_API_URL": "https://gotenberg-service-551589015703.us-central1.run.app"
+      }
+    },
+    "convertVideo": {
+      "timeoutSeconds": 540,
+      "memory": "1GiB"
+    }
+  },
+  "hosting": {
+    "public": "frontend/dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "storage": {
+    "rules": "backend/storage.rules"
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "storage": {
+      "port": 9199,
+      "rules": "backend/storage.rules"
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    },
+    "auth": {
+       "port": 9099
+     }
+  }
+}
