@@ -118,7 +118,7 @@ _(Icons courtesy of [Devicon](https://devicon.dev/))_
 ## ☁️ Backend Architecture
 
 - **Firebase Cloud Functions:** Located in `backend/functions`, these are `onCall` HTTPS functions triggered by the frontend. Each handles a specific conversion type (image, audio, video, document).
-- **Firebase Storage:** Used to temporarily store uploaded files (`uploads/`) and conversion results (`converted/`). Requires CORS configuration (`cors.json`) and security rules ([`backend/storage.rules`](backend/storage.rules)).
+- **Firebase Storage:** Used to temporarily store uploaded files (`uploads/`) and conversion results (`converted/`). Requires CORS configuration (`cors.json`) and security rules (`backend/storage.rules`).
 - **Gotenberg (Document Conversion):**
   - **Local:** Runs as a Docker container on port 3000.
   - **Production:** Deployed as a separate service on Google Cloud Run. The `convertDocument` function finds its URL via the `GOTENBERG_API_URL` environment variable (set in [`firebase.json`](firebase.json) for deployment).
