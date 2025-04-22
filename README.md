@@ -48,7 +48,7 @@ _(Icons courtesy of [Devicon](https://devicon.dev/))_
 
 **Prerequisites:**
 
-- Node.js (v22 recommended - see `backend/functions/package.json`)
+- Node.js (v22 recommended - see [`backend/functions/package.json`](backend/functions/package.json)
 - npm (comes with Node.js)
 - Firebase CLI (`npm install -g firebase-tools` and `firebase login`)
 - Google Cloud SDK (`gcloud`) - For deploying Gotenberg locally/to Cloud Run.
@@ -118,16 +118,16 @@ _(Icons courtesy of [Devicon](https://devicon.dev/))_
 ## ☁️ Backend Architecture
 
 - **Firebase Cloud Functions:** Located in `backend/functions`, these are `onCall` HTTPS functions triggered by the frontend. Each handles a specific conversion type (image, audio, video, document).
-- **Firebase Storage:** Used to temporarily store uploaded files (`uploads/`) and conversion results (`converted/`). Requires CORS configuration (`cors.json`) and security rules ([`backend/storage.rules`](mdc:backend/storage.rules)).
+- **Firebase Storage:** Used to temporarily store uploaded files (`uploads/`) and conversion results (`converted/`). Requires CORS configuration (`cors.json`) and security rules ([`backend/storage.rules`](backend/storage.rules)).
 - **Gotenberg (Document Conversion):**
   - **Local:** Runs as a Docker container on port 3000.
-  - **Production:** Deployed as a separate service on Google Cloud Run. The `convertDocument` function finds its URL via the `GOTENBERG_API_URL` environment variable (set in [`firebase.json`](mdc:firebase.json) for deployment).
+  - **Production:** Deployed as a separate service on Google Cloud Run. The `convertDocument` function finds its URL via the `GOTENBERG_API_URL` environment variable (set in [`firebase.json`](firebase.json) for deployment).
 - **Firebase Emulators:** Used extensively for local development (`functions`, `storage`).
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read the contribution guide in [`CONTRIBUTING.md`](mdc:CONTRIBUTING.md) for details on setting up, reporting issues, and submitting pull requests. Specific instructions for adding new conversion types are in [`docs/adding-converters.md`](mdc:docs/adding-converters.md).
+Contributions are welcome! Please read the contribution guide in [`CONTRIBUTING.md`](CONTRIBUTING.md) for details on setting up, reporting issues, and submitting pull requests. Specific instructions for adding new conversion types are in [`docs/adding-converters.md`](mdc:docs/adding-converters.md).
 
 ## 📄 License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for details.
