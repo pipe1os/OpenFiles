@@ -130,6 +130,7 @@ export const convertImage = functions.https.onCall(
             outputFormat === "jpg" ? "jpeg" : outputFormat
           }`,
           cacheControl: "public, max-age=3600",
+          contentDisposition: `attachment; filename="${outputFileName}"`,
         },
       });
       logger.info("Subida completada.");

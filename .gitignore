@@ -73,4 +73,5 @@ credentials.*
 /backend/functions/node_modules/
 /backend/storage.rules
 .rules
+/.firebase
 *.txt
